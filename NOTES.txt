@@ -1,0 +1,47 @@
+HOOKS
+
++ Can only be used on functional components, not class
++ Components can be defined within regular or arrow functions
++ Cannot be called within loops or conditionals
+
+USE STATE
+
+useState(initialValue)
+useState(10)            
+useState(() => 10)      // use CB for functions that are 'expensive' so that it's called only on the first render
+
++ state returns an array
+
+const arr = useState()        // but never used like this
+
++ destructured array
+
+const [valueOfState, functionToUpdateState] = useState(initialCount)
+const [count, setCount] = useState(10)
+
++ pass in function to 'setCount' to update count - avoids race conditions
+
+<button onClick={() => setCount(currentCount => currentCount+ 1)}>+ </button>
+
++ when destructuring multiple values, use spread operator in the function to maintain other values
+
++ create custom hooks (useForm)
+
+USE EFFECT
+
++ great for adding/removing event listeners
+
++ each time component is rendered or re-rendered, function gets called
+
++ first arg: function, second arg: dependency array to determine the target of the hook
+
+useEffect(() => {
+  console.log('rendered')
+}, [values.password])      //only fires when password form is altered
+
++ can replace componentDidMount if dependency is passed in - will only render once
+
++ can replace componentWillUnmount by returning a 'cleanup function' at the end of the hook
+
++ can/should use functions in useEffect dependency
+
